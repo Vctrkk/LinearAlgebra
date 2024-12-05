@@ -1,4 +1,0 @@
-﻿  源.cpp
-C:\Users\lenovo\Desktop\行列式\源.cpp(45,28): warning C4101: “A1”: 未引用的局部变量
-C:\Users\lenovo\Desktop\行列式\源.cpp(60,1): warning C4715: “det”: 不是所有的控件路径都返回值
-  行列式.vcxproj -> C:\Users\lenovo\Desktop\行列式\x64\Debug\行列式.exe

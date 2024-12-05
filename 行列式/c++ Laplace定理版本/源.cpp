@@ -42,7 +42,10 @@ double det(double** A, int n) {
         for (int i = 0; i < n - 2; i++) {
             for (int j = i + 1; j < n - 1; j++) {
                 for (int k = i + 2; k < n; k++) {
-                    double A1[3][3];//取出的3阶矩阵
+                    double** A1 = new double* [3]; //取出的3阶矩阵
+                    for (int l = 0; l < 3; l++) {
+                        A1[l] = new double[3];
+                    }
                     double** A2 = new double* [n-3]; //代数余子式的矩阵
                     for (int l = 0; l < n - 3; l++) {
                         A2[l] = new double[n - 3];
@@ -59,24 +62,20 @@ double det(double** A, int n) {
                             m2++;
                         }
                     }
-                    //求逆序数
-                    int exp = 0;//-1的幂次，就是下面要求的逆序数
-
-
-
-
-
-
+                    //int exp = 1 + 2 + 3 + i + 1 + j + 1 + k + 1;//求代数余子式需要-1的幂次，幂次为exp所示，下面就简化了
+                    //不再使用(-1)^exp，而是使用简单的switch判断符号
                     //把子式*代数余子式的值加进sum
-                    switch (exp % 2) {
-                        case 0:
-                            sum += det3(A1) * det(A2, n - 3);//凭啥A1报错？？？？？？？？
-                            break;
-                        case 1:
-                            sum -= det3(A1) * det(A2, n - 3);//凭啥A1报错？？？？？？？？
-                            break;
+                    switch ((i + j + k) % 2) {
+                    case 1:
+                        sum += det3(A1) * det(A2, n - 3);
+                        break;
+                    case 0:
+                        sum -= det3(A1) * det(A2, n - 3);
+                        break;
                     }
-                    //动态数组A2消亡防止内存泄漏
+                    //动态数组A1，A2消亡防止内存泄漏
+                    for (int l = 0; l < 3; l++) delete[]A1[l];
+                    delete[]A1;
                     for (int l = 0; l < n - 3; l++) delete[]A2[l];
                     delete[]A2;
                 }
